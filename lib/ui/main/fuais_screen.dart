@@ -10,7 +10,7 @@ class FuaisScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:Color.fromRGBO(200, 200, 200, 1),
+          backgroundColor:Color.fromRGBO(220, 220, 220, 1),
           title: Text(
             "FUAIS",
             style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
@@ -20,7 +20,7 @@ class FuaisScreen extends StatelessWidget {
         body: Container(
           width: double.maxFinite,
           height: double.maxFinite,
-          color: Color.fromRGBO(220, 220, 220, 1),
+          color: Color(0xffffffff),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -30,7 +30,7 @@ class FuaisScreen extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: Colors.white),
+                        color: Colors.black12),
                     child: ListTile(
                       title: Align(
                           alignment: Alignment.centerRight,
@@ -54,7 +54,7 @@ class FuaisScreen extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.white),
+                        color: Colors.black12),
                     child: ListTile(
                       title: Align(
                           alignment: Alignment.bottomRight,
