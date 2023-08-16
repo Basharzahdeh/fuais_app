@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fuais_app/ui/main/creat_account_screen.dart';
 import 'package:fuais_app/ui/main/fuais_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -53,16 +54,17 @@ class SignInScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'الان',
-                style: GoogleFonts.cairo(
-                    textStyle: const TextStyle(color: greyColor, fontSize: 20)),
-              ),
-              Text(
-                'لديك حساب قم بإنشاء حساب ',
-                style: GoogleFonts.cairo(
-                    textStyle: const TextStyle(color: greyColor, fontSize: 20)),
-              )
+              GestureDetector(
+                onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateAccountScreen(),));},
+                child: Text(
+                  'قم بإنشاء حساب',
+                  style: GoogleFonts.cairo(
+                    textStyle: const TextStyle(
+                      decoration: TextDecoration.underline, // Add underline
+                      color: Colors.blue, // Change color to blue
+                      fontSize: 20,
+                    ),),),),
+
             ],
           ),
           const SizedBox(

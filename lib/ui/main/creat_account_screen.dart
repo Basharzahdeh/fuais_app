@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fuais_app/ui/main/signin_screen.dart';
 import 'package:fuais_app/ui/main/signup_screen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
@@ -77,28 +78,22 @@ class _CreateAccountScreen extends State<CreateAccountScreen> {
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CreateAccountScreen(),
+                          builder: (context) => SignInScreen(),
                         ),
                       ),
                       child: Text(
-                        " قم بالدخول الان",
+                        "تسجيل الدخول",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Color.fromRGBO(112, 112, 112, 1),
+                          color: Colors.blue,
                           fontFamily: 'Alexandria',
-                          fontSize: 16,
+                          fontSize: 18,
+                          decoration: TextDecoration.underline, // Add underline
+
                         ),
                       ),
                     ),
-                    const Text(
-                      "لديك حساب بالفعل ؟",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color.fromRGBO(112, 112, 112, 1),
-                        fontFamily: 'Alexandria',
-                        fontSize: 16,
-                      ),
-                    ),
+
                   ],
                 ),
                 const SizedBox(height: 10),
