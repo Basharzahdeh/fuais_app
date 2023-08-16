@@ -110,7 +110,7 @@ class _CreateAccountScreen extends State<CreateAccountScreen> {
                           borderRadius: BorderRadius.circular(21)),
                     ),
                     child: const Text(
-                      "استمرار",
+                      "تسجيل",
                       style: TextStyle(
                         fontSize: 19,
                         color: Colors.white,
