@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fuais_app/ui/tasks/task_handing_screen.dart';
 
 class DailyTaskScreen extends StatelessWidget {
   const DailyTaskScreen({super.key});
@@ -9,7 +10,8 @@ class DailyTaskScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(220, 220, 220, 1),
+
+          backgroundColor: Color.fromRGBO(200, 200, 200, 1),
           title: Text("المهمات اليومية",style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
           centerTitle: true,
         ),
@@ -24,7 +26,7 @@ class DailyTaskScreen extends StatelessWidget {
                Padding(
                  padding: const EdgeInsets.all(18.0),
                  child: TextFormField(
-                   maxLines: 25,
+                   maxLines: 22,
                     textAlign: TextAlign.end,
                     controller: description,
                     decoration: InputDecoration(
@@ -37,6 +39,28 @@ class DailyTaskScreen extends StatelessWidget {
                         hintText: "وصف المهمة"),
                   ),
                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => TaskHandingScreen(),));},
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      height: MediaQuery.sizeOf(context).height * .08,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(9),
+                        color:  Colors.blue,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'تسليم المهمة', style:  TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24),),
+
+                      ),
+                    ),
+                  ),
+                ),
 
             ],),
           ),

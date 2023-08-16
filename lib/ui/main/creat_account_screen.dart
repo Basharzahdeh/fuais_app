@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fuais_app/ui/main/signup_screen.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   @override
@@ -102,7 +103,9 @@ class _CreateAccountScreen extends State<CreateAccountScreen> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()),);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(40, 103, 178, 1),
                       fixedSize: const Size(372, 60),

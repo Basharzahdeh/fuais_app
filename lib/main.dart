@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fuais_app/ui/main/signup_screen.dart';
-import 'package:fuais_app/ui/tasks/dailytask_screen.dart';
-import 'ui/employees/employees_screen.dart';
-import 'ui/fingerprint/fingerprint_screen.dart';
-import 'ui/tasks/tasks_screen.dart';
+import 'package:fuais_app/ui/main/signin_screen.dart';
+import 'package:fuais_app/ui/main/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +11,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -24,7 +21,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('ar', 'JO'),
       ],
-      home: SignUpScreen(),
+      home: SignInScreen(),
 
     );
   }

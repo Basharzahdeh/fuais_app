@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fuais_app/ui/fingerprint/fingerprint_screen.dart';
+import 'package:fuais_app/ui/tasks/dailytask_screen.dart';
 
 class FuaisScreen extends StatelessWidget {
   const FuaisScreen({super.key});
@@ -8,7 +10,7 @@ class FuaisScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white70,
+          backgroundColor:Color.fromRGBO(200, 200, 200, 1),
           title: Text(
             "FUAIS",
             style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
@@ -23,42 +25,48 @@ class FuaisScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white),
-                  child: ListTile(
-                    title: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text("البصمة")),
-                    subtitle: Align(
-                        alignment: Alignment.centerRight,
-                        child: Text("يمكنك تسجيل الدحول والخروج")),
-                    leading: Icon(
-                      Icons.fingerprint,
-                      color: Colors.red,
-                      size: 35,
+                InkWell(
+                  onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => FingerprintScreen(),));},
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.white),
+                    child: ListTile(
+                      title: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text("البصمة")),
+                      subtitle: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text("يمكنك تسجيل الدحول والخروج")),
+                      leading: Icon(
+                        Icons.fingerprint,
+                        color: Colors.red,
+                        size: 35,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: ListTile(
-                    title: Align(
-                        alignment: Alignment.bottomRight,
-                        child: Text("المهمات اليومية")),
-                    subtitle: Align(
-                        alignment: Alignment.bottomRight,
-                        child: Text("يمكنك تسجيل الدحول والخروج")),
-                    leading: Icon(
-                      Icons.check_circle,
-                      size: 35,
-                      color: Colors.blue,
+                InkWell(
+                  onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => DailyTaskScreen(),));},
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white),
+                    child: ListTile(
+                      title: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text("المهمات اليومية")),
+                      subtitle: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text("يمكنك تسجيل الدحول والخروج")),
+                      leading: Icon(
+                        Icons.check_circle,
+                        size: 35,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 )
