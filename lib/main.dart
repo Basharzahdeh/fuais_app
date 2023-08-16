@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('ar', 'JO'),
       ],
-      home: FingerprintScreen(),
+      home: TasksScreen(),
     );
   }
 }

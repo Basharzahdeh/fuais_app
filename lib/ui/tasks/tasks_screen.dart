@@ -43,9 +43,6 @@ class _TasksScreenState extends State<TasksScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  child: Image.asset('assets/images/upload.png', width: 65),
-                ),
                 Column(
                   children: [
                     Container(
@@ -58,10 +55,14 @@ class _TasksScreenState extends State<TasksScreen> {
                     Container(
                       child: Text('يمكنك رفع المهمه الان',
                           style:
-                              TextStyle(fontSize: 16, color: Colors.black54)),
+                          TextStyle(fontSize: 16, color: Colors.black54)),
                     )
                   ],
-                )
+                ),
+                Container(
+                  child: Image.asset('assets/images/upload.png', width: 65),
+                ),
+
               ],
             ),
           ),
@@ -81,9 +82,6 @@ class _TasksScreenState extends State<TasksScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  child: Image.asset('assets/images/correct.png', width: 65),
-                ),
                 Column(
                   children: [
                     Container(
@@ -96,10 +94,14 @@ class _TasksScreenState extends State<TasksScreen> {
                     Container(
                       child: Text('اتطلع على المهمات اليومية',
                           style:
-                              TextStyle(fontSize: 16, color: Colors.black54)),
+                          TextStyle(fontSize: 16, color: Colors.black54)),
                     )
                   ],
-                )
+                ),
+                Container(
+                  child: Image.asset('assets/images/correct.png', width: 65),
+                ),
+
               ],
             ),
           ),
