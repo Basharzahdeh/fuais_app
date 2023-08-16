@@ -20,7 +20,7 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                   fontSize: 28,
                   fontWeight: FontWeight.bold)),
           centerTitle: true,
-          backgroundColor: Colors.white,
+          backgroundColor:Color.fromRGBO(220, 220, 220, 1),
           elevation: 0,
         ),
         body: SingleChildScrollView(

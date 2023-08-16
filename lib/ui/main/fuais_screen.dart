@@ -10,7 +10,7 @@ class FuaisScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:Color.fromRGBO(220, 220, 220, 1),
+
           title: Text(
             "FUAIS",
             style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
