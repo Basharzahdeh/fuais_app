@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fuais_app/ui/main/home_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'ui/employees/employees_screen.dart';
 import 'ui/fingerprint/fingerprint_screen.dart';
 import 'ui/tasks/tasks_screen.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('ar', 'JO'),
       ],
-      home: TasksScreen(),
+      home: EmployeesScreen(),
     );
   }
 }
