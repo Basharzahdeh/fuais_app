@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fuais_app/ui/tasks/task_handing_screen.dart';
+import 'package:fuais_app/ui/main/tasks/task_handing_screen.dart';
 
 class DailyTaskScreen extends StatelessWidget {
   const DailyTaskScreen({super.key});
@@ -9,10 +9,17 @@ class DailyTaskScreen extends StatelessWidget {
     TextEditingController description=TextEditingController();
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-
-          backgroundColor: Color.fromRGBO(200, 200, 200, 1),
-          title: Text("المهمات اليومية",style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+        appBar:  AppBar(
+          iconTheme:IconThemeData(
+              color: Colors.black
+          ) ,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Text('المهمة اليومية',
+              style: TextStyle(
+                  fontSize: 28,
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold)),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -26,7 +33,7 @@ class DailyTaskScreen extends StatelessWidget {
                Padding(
                  padding: const EdgeInsets.all(18.0),
                  child: TextFormField(
-                   maxLines: 22,
+                   maxLines: 16,
                     textAlign: TextAlign.end,
                     controller: description,
                     decoration: InputDecoration(

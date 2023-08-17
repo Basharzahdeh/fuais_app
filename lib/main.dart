@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fuais_app/ui/main/signin_screen.dart';
-import 'package:fuais_app/ui/main/splash_screen.dart';
+import 'package:fuais_app/ui/main/start/splash_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('ar', 'JO'),
       ],
-      home: SignInScreen(),
+      home: SplashPage(),
 
     );
   }

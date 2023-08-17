@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fuais_app/ui/main/creat_account_screen.dart';
-import 'package:fuais_app/ui/main/fuais_screen.dart';
+import 'package:fuais_app/ui/main/start/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'create_account_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -18,10 +19,13 @@ class SignInScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          SvgPicture.asset(
-            'assets/images/undraw.svg',
-            width: 20,
-            height: 200,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SvgPicture.asset(
+              'assets/images/login.svg',
+              width: 20,
+              height: 170,
+            ),
           ),
           const SizedBox(
             height: 10,
@@ -55,7 +59,7 @@ class SignInScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateAccountScreen(),));},
+                onTap: (){Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CreateAccountScreen(),));},
                 child: Text(
                   'قم بإنشاء حساب',
                   style: GoogleFonts.cairo(
@@ -70,7 +74,7 @@ class SignInScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          CustomButton(onClick: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => FuaisScreen(),));}, text: 'تسجيل الدخول')
+          CustomButton(onClick: () {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(),));}, text: 'تسجيل الدخول')
         ]),
       ),
     );

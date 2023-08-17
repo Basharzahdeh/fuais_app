@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fuais_app/ui/main/signin_screen.dart';
-import 'package:fuais_app/ui/main/signup_screen.dart';
+import 'package:fuais_app/ui/auth/signin_screen.dart';
+import 'package:fuais_app/ui/auth/complete_your_profile.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   @override
@@ -74,22 +74,25 @@ class _CreateAccountScreen extends State<CreateAccountScreen> {
                 ),Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton(
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SignInScreen(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextButton(
+                        onPressed: () => Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignInScreen(),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        "تسجيل الدخول",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontFamily: 'Alexandria',
-                          fontSize: 18,
-                          decoration: TextDecoration.underline, // Add underline
+                        child: Text(
+                          "يوجد لديك حساب ؟ تسجيل دخول الان",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontFamily: 'Alexandria',
+                            fontSize: 18,
+                           // Add underline
 
+                          ),
                         ),
                       ),
                     ),
@@ -99,7 +102,7 @@ class _CreateAccountScreen extends State<CreateAccountScreen> {
                 const SizedBox(height: 10),
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUpScreen()),);
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CompleteYourProfile()),);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(40, 103, 178, 1),

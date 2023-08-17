@@ -16,6 +16,9 @@ class _EmployeesScreenState extends State<EmployeesScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          iconTheme:IconThemeData(
+              color: Colors.black
+          ) ,
           title: Text('جميع الموظفين',
               style: TextStyle(
                   color: Colors.black54,

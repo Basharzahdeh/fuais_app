@@ -1,17 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fuais_app/ui/main/signin_screen.dart';
+import 'package:fuais_app/ui/auth/signin_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class CompleteYourProfile extends StatefulWidget {
+  const CompleteYourProfile({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<CompleteYourProfile> createState() => _CompleteYourProfileState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _CompleteYourProfileState extends State<CompleteYourProfile> {
   final ImagePicker _imagePicker = ImagePicker();
   XFile? pikedImagenew;
   bool check = false;
@@ -216,7 +216,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
-                    onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignInScreen(),));},
+                    onTap: (){Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => SignInScreen(),));},
                     child: Container(
                       width: MediaQuery.sizeOf(context).width,
                       height: MediaQuery.sizeOf(context).height * .08,
