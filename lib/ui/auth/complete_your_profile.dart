@@ -16,14 +16,15 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
   XFile? pikedImagenew;
   bool check = false;
 
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _priceController = TextEditingController();
-  TextEditingController _ramController = TextEditingController();
-  TextEditingController _storageController = TextEditingController();
-  TextEditingController _otherController = TextEditingController();
+  var nameController = "";
+  var priceController = "";
+  var ramController = "";
+  var storageController = "";
+  var otherController = "";
 
   Future<void> getgallery() async {
-    final XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
+    final XFile? image =
+        await _imagePicker.pickImage(source: ImageSource.gallery);
 
     if (image == null) {
       return;
@@ -54,7 +55,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     onTap: () {
                       Navigator.of(context).pop(ImageSource.gallery);
                     },
-                    child: Column(
+                    child: const Column(
                       children: [
                         const Icon(Icons.photo_library),
                         const SizedBox(height: 8),
@@ -66,10 +67,10 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
                     onTap: () {
                       Navigator.of(context).pop(ImageSource.camera);
                     },
-                    child: Column(
+                    child: const Column(
                       children: [
-                        const Icon(Icons.camera_alt),
-                        const SizedBox(height: 8),
+                        Icon(Icons.camera_alt),
+                        SizedBox(height: 8),
                         Text('Camera'),
                       ],
                     ),
@@ -83,7 +84,8 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
     );
 
     if (imageSource != null) {
-      final imagePickerResult = await _imagePicker.pickImage(source: imageSource);
+      final imagePickerResult =
+          await _imagePicker.pickImage(source: imageSource);
       if (imagePickerResult != null) {
         setState(() {
           pikedImagenew = imagePickerResult;
@@ -94,7 +96,7 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
 
   Widget _buildCircleAvatar() {
     if (pikedImagenew == null) {
-      return CircleAvatar(
+      return const CircleAvatar(
         backgroundColor: Colors.grey,
         radius: 70,
       );
@@ -106,136 +108,195 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
     }
   }
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(220, 220, 220, 1),
-
-          title: Text("أكمل ملفك الشخصي",style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),centerTitle: true,),
+          backgroundColor: const Color.fromRGBO(220, 220, 220, 1),
+          title: const Text("أكمل ملفك الشخصي",
+              style:
+                  TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+          centerTitle: true,
+        ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        _buildCircleAvatar(),
-                        Container(
-                          margin: EdgeInsets.only(top: 80, left: 90),
-                          child: IconButton(
-                            onPressed: () {
-                              _selectProfileImage();
-                            },
-                            icon: Icon(
-                              Icons.add_a_photo_rounded,
-                              color: Colors.red,
-                              size: 45,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          _buildCircleAvatar(),
+                          Container(
+                            margin: const EdgeInsets.only(top: 80, left: 90),
+                            child: IconButton(
+                              onPressed: () {
+                                _selectProfileImage();
+                              },
+                              icon: const Icon(
+                                Icons.add_a_photo_rounded,
+                                color: Colors.red,
+                                size: 45,
+                              ),
                             ),
                           ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Text("يرجى رفع صورة شحصية رسمية"),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    onSaved: (newValue) {
+                      nameController = newValue!;
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "يجب ادخال الاسم ";
+                      }
+                      return null;
+                    },
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide.none,
                         ),
-                      ],
-                    ),
-                  ],
+                        filled: true,
+                        fillColor: const Color.fromRGBO(240, 240, 240, 1),
+                        hintText: "الاسم من ثلاث مقاطع باللفة العربية"),
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "يجب ادخال التخصص الجامعي ";
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) {
+                      priceController = newValue!;
+                    },
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: const Color.fromRGBO(240, 240, 240, 1),
+                        hintText: "التخصص الجامعي"),
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "يجب ادخال نوع التدريب ";
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) {
+                      storageController = newValue!;
+                    },
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: const Color.fromRGBO(240, 240, 240, 1),
+                        hintText: "نوع التدريب"),
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "يجب ادخال لغة البرمجة ";
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) {
+                      ramController = newValue!;
+                    },
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: const Color.fromRGBO(240, 240, 240, 1),
+                        hintText: "لغة البرمجة أو الأختصاص"),
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "يجب ادخال سنة التخرج ";
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) {
+                      otherController = newValue!;
+                    },
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: const Color.fromRGBO(240, 240, 240, 1),
+                        hintText: "سنة التخرج"),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
 
-                ),
-                Text("يرجى رفع صورة شحصية رسمية"),
-                SizedBox(height: 10,),
-                TextFormField(
-                  textAlign: TextAlign.start,
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromRGBO(240, 240, 240, 1),
-                      hintText: "الاسم من ثلاث مقاطع باللفة العربية"),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  textAlign: TextAlign.start,
-                  controller: _priceController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromRGBO(240, 240, 240, 1),
-                      hintText: "التخصص الجامعي"),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  textAlign: TextAlign.start,
-                  controller: _storageController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromRGBO(240, 240, 240, 1),
-                      hintText: "نوع التدريب"),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  textAlign: TextAlign.start,
-                  controller: _ramController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromRGBO(240, 240, 240, 1),
-                      hintText: "لغة البرمجة أو الأختصاص"),
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  textAlign: TextAlign.start,
-                  controller: _otherController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromRGBO(240, 240, 240, 1),
-                      hintText: "سنة التخرج"),
-
-                ),
-                SizedBox(height: 20,),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    onTap: (){Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => SignInScreen(),));},
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).width,
-                      height: MediaQuery.sizeOf(context).height * .08,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(9),
-                        color:  Colors.blue,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'أكمال الملف الشخصي', style:  TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 24),),
-
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const SignInScreen(),
+                            ),
+                          );
+                        }
+                      },
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width,
+                        height: MediaQuery.sizeOf(context).height * .08,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(9),
+                          color: Colors.blue,
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'أكمال الملف الشخصي',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 24),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -243,5 +304,3 @@ class _CompleteYourProfileState extends State<CompleteYourProfile> {
     );
   }
 }
-
-
