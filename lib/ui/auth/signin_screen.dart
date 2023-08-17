@@ -6,76 +6,110 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'create_account_screen.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  String email = '';
+  String password = '';
+  final GlobalKey<FormState> _formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: ListView(children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SvgPicture.asset(
-              'assets/images/login.svg',
-              width: 20,
-              height: 170,
+        child: Form(
+          key: _formKey,
+          child: ListView(children: [
+            const SizedBox(
+              height: 20,
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            'تسجيل الدخول',
-            style: GoogleFonts.cairo(
-                textStyle: const TextStyle(color: textColor, fontSize: 25)),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            'يرجى ادخال اسم المستخدم \nوكلمة السر للدخول الى النظام',
-            style: GoogleFonts.cairo(
-                textStyle: const TextStyle(color: greyColor, fontSize: 20)),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          const CustomTextFormField(
-              labelText: 'اسم المستخدم', hintText: 'الرجاء ادخال اسم المتسخدم'),
-          const SizedBox(
-            height: 20,
-          ),
-          const CustomTextFormField(
-              labelText: 'كلمة السر', hintText: '**** ****'),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: (){Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CreateAccountScreen(),));},
-                child: Text(
-                  'قم بإنشاء حساب',
-                  style: GoogleFonts.cairo(
-                    textStyle: const TextStyle(
-                      decoration: TextDecoration.underline, // Add underline
-                      color: Colors.blue, // Change color to blue
-                      fontSize: 20,
-                    ),),),),
-
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          CustomButton(onClick: () {Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(),));}, text: 'تسجيل الدخول')
-        ]),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                'assets/images/login.svg',
+                width: 20,
+                height: 170,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              'تسجيل الدخول',
+              style: GoogleFonts.cairo(
+                  textStyle: const TextStyle(color: textColor, fontSize: 25)),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'يرجى ادخال اسم المستخدم \nوكلمة السر للدخول الى النظام',
+              style: GoogleFonts.cairo(
+                  textStyle: const TextStyle(color: greyColor, fontSize: 20)),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            CustomTextFormField(
+                onSave: (val) {
+                  email = val!;
+                },
+                labelText: 'اسم المستخدم',
+                hintText: 'الرجاء ادخال اسم المتسخدم'),
+            const SizedBox(
+              height: 20,
+            ),
+            CustomTextFormField(
+                onSave: (val) {
+                  password = val!;
+                },
+                labelText: 'كلمة السر',
+                hintText: '**** ****'),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => CreateAccountScreen(),
+                    ));
+                  },
+                  child: Text(
+                    'قم بإنشاء حساب',
+                    style: GoogleFonts.cairo(
+                      textStyle: const TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: Colors.blue,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            CustomButton(
+                onClick: () {
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const HomeScreen(),
+                    ));
+                  }
+                },
+                text: 'تسجيل الدخول')
+          ]),
+        ),
       ),
     );
   }
@@ -84,6 +118,7 @@ class SignInScreen extends StatelessWidget {
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
       {super.key,
+      required this.onSave,
       required this.labelText,
       this.obscureText = false,
       required this.hintText});
@@ -91,12 +126,21 @@ class CustomTextFormField extends StatelessWidget {
   final String labelText;
   final String hintText;
   final bool obscureText;
+  final Function(String?) onSave;
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
+          onSaved: onSave,
+          validator: (val) {
+            if (val == null || val.isEmpty) {
+              return 'الرجاء تعبئة الحقل';
+            } else {
+              return null;
+            }
+          },
           textAlign: TextAlign.right,
           obscureText: obscureText,
           decoration: InputDecoration(
