@@ -3,8 +3,8 @@ import 'package:image_picker/image_picker.dart';
 class TaskHandingModel {
   String taskHandingId;
   String taskName;
-  DateTime taskDate;
-  XFile taskFile;
+  String taskDate;
+  String taskFile;
 
   TaskHandingModel(
       {required this.taskHandingId,

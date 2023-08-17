@@ -7,5 +7,12 @@ class taskHandingProvider with ChangeNotifier {
 
   List<TaskHandingModel> get listTaskHanding {
     return [..._listTaskHanding];
+
+
+  }
+
+  void taskHanding(TaskHandingModel newTask){
+    _listTaskHanding.add(newTask);
+    notifyListeners();
   }
 }
