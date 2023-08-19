@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fuais_app/ui/auth/complete_your_profile.dart';
 import 'package:fuais_app/ui/main/fingerprint/enterfingerprint_screen.dart';
 import 'package:fuais_app/ui/main/fingerprint/fingerprint1_screen.dart';
 import 'package:fuais_app/providers/user_provider.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('ar', 'JO'),
       ],
-      home: Finger2Screen(),
+      home: CompleteYourProfile(),
 
 
     ));
