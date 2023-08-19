@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fuais_app/ui/main/fingerprint/employees_screen.dart';
+import 'package:fuais_app/ui/main/fingerprint/users_screen.dart';
 
 class FingerprintScreen extends StatefulWidget {
   const FingerprintScreen({super.key});
@@ -135,7 +135,7 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25)))),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmployeesScreen(),));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => UsersScreen(),));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

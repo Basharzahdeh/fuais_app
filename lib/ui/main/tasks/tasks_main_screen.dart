@@ -15,9 +15,7 @@ class _TasksMainScreenState extends State<TasksMainScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme:IconThemeData(
-            color: Colors.black
-        ) ,
+        iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text('المهمات اليومية',
@@ -34,8 +32,10 @@ class _TasksMainScreenState extends State<TasksMainScreen> {
               height: 40,
             ),
             InkWell(
-              onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => TaskHandingScreen(),));
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => TaskHandingScreen(),
+                ));
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 30, horizontal: 25),
@@ -53,9 +53,7 @@ class _TasksMainScreenState extends State<TasksMainScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      child: Image.asset('assets/images/upload.png', width: 65),
-                    ),
+
                     Column(
                       children: [
                         Container(
@@ -67,19 +65,23 @@ class _TasksMainScreenState extends State<TasksMainScreen> {
                         ),
                         Container(
                           child: Text('يمكنك رفع المهمه الان',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.black54)),
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.black54)),
                         )
                       ],
-                    )
+                    ),
+                    Container(
+                      child: Image.asset('assets/images/upload.png', width: 65),
+                    ),
                   ],
                 ),
               ),
             ),
             InkWell(
-              onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => DailyTaskScreen(),));
-
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => DailyTaskScreen(),
+                ));
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 30, horizontal: 25),
@@ -97,9 +99,7 @@ class _TasksMainScreenState extends State<TasksMainScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      child: Image.asset('assets/images/correct.png', width: 65),
-                    ),
+
                     Column(
                       children: [
                         Container(
@@ -111,11 +111,15 @@ class _TasksMainScreenState extends State<TasksMainScreen> {
                         ),
                         Container(
                           child: Text('اتطلع على المهمات اليومية',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.black54)),
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.black54)),
                         )
                       ],
-                    )
+                    ),
+                    Container(
+                      child:
+                      Image.asset('assets/images/correct.png', width: 65),
+                    ),
                   ],
                 ),
               ),
@@ -141,8 +145,9 @@ class _TasksMainScreenState extends State<TasksMainScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                       style: ButtonStyle(
-                          shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25)))),
+                          shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25)))),
                       onPressed: () {},
                       child: Text(
                         'تواصل الان',
