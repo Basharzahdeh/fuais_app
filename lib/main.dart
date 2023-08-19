@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fuais_app/ui/main/fingerprint/enterfingerprint_screen.dart';
+import 'package:fuais_app/ui/main/fingerprint/fingerprint1_screen.dart';
 import 'package:fuais_app/ui/main/start/splash_screen.dart';
 
 
@@ -21,8 +23,9 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('ar', 'JO'),
       ],
-      home: SplashPage(),
+      home: Finger2Screen(),
 
     );
   }
 }
+
