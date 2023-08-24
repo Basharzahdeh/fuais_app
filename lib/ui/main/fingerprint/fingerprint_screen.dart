@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fuais_app/ui/main/fingerprint/users_screen.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:ndialog/ndialog.dart';
+
+import 'fingerprint.dart';
 
 class FingerprintScreen extends StatefulWidget {
   const FingerprintScreen({super.key});
@@ -9,15 +14,103 @@ class FingerprintScreen extends StatefulWidget {
 }
 
 class _FingerprintScreenState extends State<FingerprintScreen> {
+  bool isLogin = false;
+
+  List<Placemark> placemarks = [];
+
+  late Position currentLocation;
+
+  Future getPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    print(serviceEnabled);
+    if (serviceEnabled == false) {
+      print('plase turn on gps');
+    }
+    permission = await Geolocator.checkPermission();
+    print(permission);
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+    if (permission == LocationPermission.whileInUse ||
+        permission == LocationPermission.always) {
+      currentLocation = await Geolocator.getCurrentPosition();
+    }
+  }
+
+  final FingerPrint _fingerPrint = FingerPrint();
+  bool _authenticationInProgress = false;
+
+  void fingerPrintLogIn() async {
+    if (_authenticationInProgress) {
+      return; // Don't trigger authentication if it's already in progress
+    }
+    setState(() {
+      _authenticationInProgress = true;
+    });
+
+    bool isFingerPrintEnable = await _fingerPrint.isFingerEn();
+    if (isFingerPrintEnable) {
+      bool isAuth = await _fingerPrint.isFinger('login using fingerprint');
+      if (isAuth) {
+        isLogin = true;
+        placemarks = await placemarkFromCoordinates(
+          currentLocation.latitude,
+          currentLocation.longitude,
+        );
+        print("${placemarks[0].subLocality},${placemarks[0].thoroughfare}");
+        print('${TimeOfDay.now().hour}:${TimeOfDay.now().minute}');
+        print('---------------------------------------');
+      }
+    }
+
+    setState(() {
+      _authenticationInProgress = false;
+    });
+  }
+
+  void fingerPrintLogOut() async {
+    if (_authenticationInProgress) {
+      return; // Don't trigger authentication if it's already in progress
+    }
+    setState(() {
+      _authenticationInProgress = true;
+    });
+
+    bool isFingerPrintEnable = await _fingerPrint.isFingerEn();
+    if (isFingerPrintEnable) {
+      bool isAuth = await _fingerPrint.isFinger('login using fingerprint');
+      if (isAuth) {
+        isLogin = false;
+        placemarks = await placemarkFromCoordinates(
+          currentLocation.latitude,
+          currentLocation.longitude,
+        );
+        print("${placemarks[0].subLocality},${placemarks[0].thoroughfare}");
+        print('${TimeOfDay.now().hour}:${TimeOfDay.now().minute}');
+        print('---------------------------------------');
+      }
+    }
+
+    setState(() {
+      _authenticationInProgress = false;
+    });
+  }
+
+  @override
+  void initState() {
+    getPosition();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       appBar: AppBar(
-        iconTheme:IconThemeData(
-          color: Colors.black
-        ) ,
+        iconTheme: IconThemeData(color: Colors.black),
         title: Text('البصمة',
             style: TextStyle(
                 color: Colors.black54,
@@ -51,12 +144,20 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
               alignment: Alignment.topRight,
               child: Row(
                 children: [
-                  Image.asset('assets/images/green dot.png', width: 16),
-                  Text('  في الدوام',
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black45,
-                          fontWeight: FontWeight.bold)),
+                  isLogin == false
+                      ? Image.asset('assets/images/red dot.png', width: 16)
+                      : Image.asset('assets/images/green dot.png', width: 16),
+                  isLogin == false
+                      ? Text('  خارج الدوام',
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black45,
+                              fontWeight: FontWeight.bold))
+                      : Text('  في الدوام',
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black45,
+                              fontWeight: FontWeight.bold))
                 ],
               ),
             ),
@@ -73,22 +174,52 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                   ),
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: Text('بصمة الدخول ',
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  Container(
-                      child: Image.asset(
-                    'assets/images/fingerprint.png',
-                    width: 90,
-                  )),
-                ],
+              child: InkWell(
+                onTap: () {
+                  if (isLogin == false) {
+                    fingerPrintLogIn();
+                  } else {
+                    NAlertDialog(
+                      dialogStyle: DialogStyle(
+                        borderRadius: BorderRadius.circular(25),
+                        backgroundColor: Colors.white,
+                      ),
+                      dismissable: true,
+                      title: Row(
+                        children: [
+                          Icon(
+                            Icons.warning_outlined,
+                            color: Colors.yellow[700],
+                          ),
+                          Text(' تنبيه '),
+                        ],
+                      ),
+                      content: Text("لم يتم تسجيل الخروج"),
+                      actions: <Widget>[
+                        TextButton(
+                            child: Text("Okay"),
+                            onPressed: () => Navigator.pop(context)),
+                      ],
+                    ).show(context);
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Text('بصمة الدخول ',
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    Container(
+                        child: Image.asset(
+                      'assets/images/fingerprint.png',
+                      width: 90,
+                    )),
+                  ],
+                ),
               ),
             ),
             Container(
@@ -104,22 +235,52 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
                   ),
                 ],
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: Text('بصمة الخروج ',
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  Container(
-                      child: Image.asset(
-                    'assets/images/fingerprint.png',
-                    width: 90,
-                  )),
-                ],
+              child: InkWell(
+                onTap: () {
+                  if (isLogin == true) {
+                    fingerPrintLogOut();
+                  } else {
+                    NAlertDialog(
+                      dialogStyle: DialogStyle(
+                        borderRadius: BorderRadius.circular(25),
+                        backgroundColor: Colors.white,
+                      ),
+                      dismissable: true,
+                      title: Row(
+                        children: [
+                          Icon(
+                            Icons.warning_outlined,
+                            color: Colors.yellow[700],
+                          ),
+                          Text(' تنبيه '),
+                        ],
+                      ),
+                      content: Text("لم يتم تسجيل الدخول"),
+                      actions: <Widget>[
+                        TextButton(
+                            child: Text("Okay"),
+                            onPressed: () => Navigator.pop(context)),
+                      ],
+                    ).show(context);
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Text('بصمة الخروج ',
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    Container(
+                        child: Image.asset(
+                      'assets/images/fingerprint.png',
+                      width: 90,
+                    )),
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -131,11 +292,14 @@ class _FingerprintScreenState extends State<FingerprintScreen> {
               height: 75,
               child: ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.blue[500]),
+                      backgroundColor:
+                          MaterialStatePropertyAll(Colors.blue[500]),
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25)))),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => UsersScreen(),));
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => UsersScreen(),
+                    ));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
