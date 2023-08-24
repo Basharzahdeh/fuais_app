@@ -21,21 +21,34 @@ class _DailyTasksScreenState extends State<DailyTasksScreen> {
     Image.asset('assets/images/S3.png'),
   ];
 
+  String dscrabionData = '''في تشبيه جميل وبليغ ، أعطانا الشاعر الملهم إيليا أبو ماضي خلاصة التجربة العميقة والنظرة الثاقبة عن ماهية وكون الحياة .
+
+شريط طويل يضم أحداثا تتصارع خيوطها وتتسابق إلى شقاء وحزن وقرح ''';
+
   void AddRandomImage() {
     // random image select in range 0-3
     var RandImgIndex = new Random().nextInt(3);
 
     // if index =0 pick image that is on 0 index
     if (RandImgIndex == 0) {
-      imgList.add(Image.asset('Images/S1.png'));
+      imgList.add(Image.asset(
+        'Images/S1.png',
+        height: 200,
+      ));
     }
     // if index =1 pick image at index 1
     else if (RandImgIndex == 1) {
-      imgList.add(Image.asset('Images/S2.png'));
+      imgList.add(Image.asset(
+        'Images/S2.png',
+        width: 200,
+      ));
     }
     // pick image at 3 index
     else {
-      imgList.add(Image.asset('Images/S3.png'));
+      imgList.add(Image.asset(
+        'Images/S3.png',
+        width: 200,
+      ));
     }
   }
 
@@ -128,6 +141,8 @@ class _DailyTasksScreenState extends State<DailyTasksScreen> {
                     child: const Text(
                       'الصور والفيديوهات',
                       style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
+
                     ),
                     onPressed: () => setState(() {
                       _Select = false;
@@ -137,93 +152,124 @@ class _DailyTasksScreenState extends State<DailyTasksScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                height: 200,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    for (var item in imgList)
-                      Center(
-                        child: Container(width: 500, height: 350, child: item),
+            !_Select
+                ? Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Container(
+                          height: 200,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              for (var item in imgList)
+                                Center(
+                                  child: Container(
+                                    width: 500,
+                                    child: item,
+                                    //color: Colors.grey,
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
                       ),
-                  ],
+                      Container(
+                        height: 250,
+                        child: Padding(
+                          padding: EdgeInsets.all(20),
+                          child: ListView(
+                            children: [
+                              Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.grey[200]),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      'المرفق 1',
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.blue),
+                                    ),
+                                    Icon(
+                                      Icons.download,
+                                      size: 40,
+                                      color: Colors.blue,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.grey[200]),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      'المرفق 1',
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.blue),
+                                    ),
+                                    Icon(
+                                      Icons.download,
+                                      size: 40,
+                                      color: Colors.blue,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.grey[200]),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      'المرفق 1',
+                                      style: TextStyle(
+                                          fontSize: 20, color: Colors.blue),
+                                    ),
+                                    Icon(
+                                      Icons.download,
+                                      size: 40,
+                                      color: Colors.blue,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                : Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'وصف المهمة ',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          dscrabionData,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
                 ),
-              ),
-            ),
-            Container(
-              height: 250,
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: ListView(
-                  children: [
-                    Container(
-                      height: 60,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey[200]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'المرفق 1',
-                            style: TextStyle(fontSize: 20, color: Colors.blue),
-                          ),
-                          Icon(
-                            Icons.download,
-                            size: 40,
-                            color: Colors.blue,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                      height: 60,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey[200]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'المرفق 1',
-                            style: TextStyle(fontSize: 20, color: Colors.blue),
-                          ),
-                          Icon(
-                            Icons.download,
-                            size: 40,
-                            color: Colors.blue,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                      height: 60,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey[200]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'المرفق 1',
-                            style: TextStyle(fontSize: 20, color: Colors.blue),
-                          ),
-                          Icon(
-                            Icons.download,
-                            size: 40,
-                            color: Colors.blue,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
           ],
         ),
       ),

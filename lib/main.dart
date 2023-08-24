@@ -6,6 +6,7 @@ import 'package:fuais_app/ui/main/fingerprint/fingerprint1_screen.dart';
 import 'package:fuais_app/providers/user_provider.dart';
 import 'package:fuais_app/ui/main/fingerprint/users_screen.dart';
 import 'package:fuais_app/ui/main/start/splash_screen.dart';
+import 'package:fuais_app/ui/main/tasks/daily_tasks_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/task_handing_provider.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('ar', 'JO'),
       ],
-      home: CompleteYourProfile(),
+      home: DailyTasksScreen(),
 
 
     ));
