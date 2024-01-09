@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fuais_app/providers/user_provider.dart';
-import 'package:fuais_app/ui/main/fingerprint/fingerprint_screen.dart';
-import 'package:fuais_app/ui/main/tasks/daily_tasks_screen.dart';
 import 'package:provider/provider.dart';
 import 'providers/task_handing_provider.dart';
+import 'ui/main/start/splash_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         Locale('ar', 'JO'),
       ],
-      home: FingerprintScreen(),
+      home: SplashPage(),
 
 
     ));
